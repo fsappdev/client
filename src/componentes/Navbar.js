@@ -7,9 +7,9 @@ const navbar = () => {
     <nav>
       <div className="nav-wrapper white">
         <Link to="/" className="brand-logo left">
-          Logo
+          InstaClone
         </Link>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <ul id="nav-mobile" className="right ">
           <li>
             <Link to="/login">Entrar</Link>
           </li>
@@ -18,6 +18,9 @@ const navbar = () => {
           </li>
           <li>
             <Link to="/perfil">Perfil</Link>
+          </li>
+          <li>
+            <Link to="/postear">Postear</Link>
           </li>
         </ul>
       </div>

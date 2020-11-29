@@ -7,6 +7,7 @@ import Home from "./componentes/pantallas/Home";
 import Perfil from "./componentes/pantallas/Perfil";
 import Login from "./componentes/pantallas/Login";
 import Registrarse from "./componentes/pantallas/Registrarse";
+import CrearPost from "./componentes/pantallas/CrearPost";
 
 //file: app.js
 
@@ -25,6 +26,9 @@ function App() {
       </Route>
       <Route exact path="/perfil">
         <Perfil />
+      </Route>
+      <Route exact path="/postear">
+        <CrearPost />
       </Route>
     </Router>
   );
