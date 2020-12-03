@@ -5,8 +5,8 @@ const Login = () => {
     <div className="container my-card">
       <div className="card auth-card input-field">
         <h2>InstaClone</h2>
-        <input placeholder="email" type="text" />
-        <input placeholder="password" type="text" />
+        <input placeholder="email" type="email" />
+        <input placeholder="password" type="password" />
         <br />
         <br />
         <button
