@@ -1,10 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import M from "materialize-css";
 
 const CrearPost = () => {
   //
+  const history = useHistory();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState("");
+  const [url, setUrl] = useState("");
+  //
+  useEffect(() => {
+    if (url) {
+      fetch("http://localhost:4000/crearpost", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: JSON.stringify({ title, body, pic: url }), //por ES6 se "resumen" las claves/valor
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.error) {
+          M.toast({ html: data.error, classes: "#d500f9 purple accent-3" });
+        } else {
+          M.toast({ html: "Posteado exitosamente", classes: "#2196f3 blue" });
+          history.push("/");
+        }
+      });
+    }
+  },[url]
+  )
   //
   const urlVarios = "https://api.cloudinary.com/v1_1/developfsa/auto/upload";
   const urlImagenes = "https://api.cloudinary.com/v1_1/developfsa/image/upload";
@@ -26,9 +54,10 @@ const CrearPost = () => {
       body: data,
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => setUrl(data.url))
       .then(clear())
       .catch((err) => console.log(err));
+    
   };
   //
 

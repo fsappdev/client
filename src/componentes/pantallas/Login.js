@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import M from "materialize-css";
+
 const Login = () => {
   //
 
@@ -39,6 +40,8 @@ const Login = () => {
         if (data.error) {
           M.toast({ html: data.error, classes: "#d500f9 purple accent-3" });
         } else {
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
           M.toast({ html: "Bienvenido/a!!", classes: "#2196f3 blue" });
           clear();
           history.push("/");
