@@ -16,6 +16,18 @@ const Registrarse = () => {
   };
   //
   const PostearDatos = () => {
+    if (
+      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    ) {
+      M.toast({
+        html: "El email no es correcto",
+        classes: "#d500f9 purple accent-3",
+      });
+      clear();
+      return;
+    }
     fetch("http://localhost:4000/registrarse", {
       method: "post",
       headers: {
