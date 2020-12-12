@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
 import { useHistory } from "react-router-dom";
 import M from "materialize-css";
+import {UserContext} from '../../App'
 
 const Login = () => {
   //
-
+  const {state,dispatch} = useContext(UserContext)
+  //
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const history = useHistory();
@@ -36,12 +39,13 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         if (data.error) {
           M.toast({ html: data.error, classes: "#d500f9 purple accent-3" });
         } else {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
+          dispatch({type:"USER",payload:data.user})
           M.toast({ html: "Bienvenido/a!!", classes: "#2196f3 blue" });
           clear();
           history.push("/");
