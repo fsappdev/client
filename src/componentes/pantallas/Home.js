@@ -1,76 +1,56 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 const Home = () => {
+  const [data, setData] = useState([])
+  //const jasonToken = localStorage.getItem("jwt")
+  //console.log(jasonToken);
+  
+  useEffect(() => {
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${localStorage.getItem("jwt")}`)
+    myHeaders.set('Content-Type', 'application/json');
+
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow' 
+    };
+
+    fetch("http://localhost:4000/todoslosposts", requestOptions)
+      .then(res=>res.json())
+      .then(result => {
+        console.log(result)
+        setData(result)
+      })
+      .catch(error => console.log('error', error));
+  },[]
+  )
+
   return (
     <div className="home">
-      <div className="card home-card">
-        <h5>Dario</h5>
-        <div className="card-image">
-          <img
-            src="https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
-            alt=""
-          />
-        </div>
-        <div className="card-content">
-          <i style={{ color: "red" }} className="material-icons">
-            favorite
-          </i>
-          <h6>Titulo</h6>
-          <p>Este un post genial</p>
-          <input type="text" placeholder="agrega un comentario" />
-        </div>
-      </div>
-      <div className="card home-card">
-        <h5>Dario</h5>
-        <div className="card-image">
-          <img
-            src="https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
-            alt=""
-          />
-        </div>
-        <div className="card-content">
-          <i style={{ color: "red" }} className="material-icons">
-            favorite
-          </i>
-          <h6>Titulo</h6>
-          <p>Este un post genial</p>
-          <input type="text" placeholder="agrega un comentario" />
-        </div>
-      </div>
-      <div className="card home-card">
-        <h5>Dario</h5>
-        <div className="card-image">
-          <img
-            src="https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
-            alt=""
-          />
-        </div>
-        <div className="card-content">
-          <i style={{ color: "red" }} className="material-icons">
-            favorite
-          </i>
-          <h6>Titulo</h6>
-          <p>Este un post genial</p>
-          <input type="text" placeholder="agrega un comentario" />
-        </div>
-      </div>
-      <div className="card home-card">
-        <h5>Dario</h5>
-        <div className="card-image">
-          <img
-            src="https://images.unsplash.com/photo-1498429089284-41f8cf3ffd39?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
-            alt=""
-          />
-        </div>
-        <div className="card-content">
-          <i style={{ color: "red" }} className="material-icons">
-            favorite
-          </i>
-          <h6>Titulo</h6>
-          <p>Este un post genial</p>
-          <input type="text" placeholder="agrega un comentario" />
-        </div>
-      </div>
+      {
+        data ? data.map(item=>{
+          return(
+            <div className="card home-card">
+            <h5>Dario</h5>
+            <div className="card-image">
+              <img
+                src={item.foto}
+                alt=""
+              />
+            </div>
+            <div className="card-content">
+              <i style={{ color: "red" }} className="material-icons">
+                favorite
+              </i>
+              <h6>{item.titulo}</h6>
+              <p>{item.body}</p>
+              <input type="text" placeholder="agrega un comentario" />
+            </div>
+          </div>
+          )
+        }) : <h3>...Aun no se ha creado contenido</h3>
+      }
     </div>
   );
 };

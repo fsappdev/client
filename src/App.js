@@ -18,8 +18,8 @@ const Routing = () => {
   const {state, dispatch} =useContext(UserContext)
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"))
-    console.log(typeof user)
-    console.log(user);
+    //console.log(typeof user)
+    //console.log(user);
     if(user){
       dispatch({type:"USER", payload: user})
       history.push('/')

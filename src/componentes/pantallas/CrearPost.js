@@ -49,13 +49,13 @@ const CrearPost = () => {
     data.append("upload_preset", "instaclone");
     data.append("cloud_name", "developfsa");
     data.append("resource_type", "auto");
-    fetch(urlVarios, {
+    fetch(urlImagenes, {
       method: "post",
       body: data,
     })
       .then((res) => res.json())
       .then((data) => setUrl(data.url))
-      .then(clear())
+      /* .then(clear()) */
       .catch((err) => console.log(err));
     
   };

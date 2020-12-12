@@ -18,7 +18,7 @@ const Login = () => {
   };
   //
   const PostearDatos = () => {
-    if (
+    if (// eslint-disable-next-line
       !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
       )
@@ -39,7 +39,7 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        //console.log(data);
+        console.log(data);
         if (data.error) {
           M.toast({ html: data.error, classes: "#d500f9 purple accent-3" });
         } else {
