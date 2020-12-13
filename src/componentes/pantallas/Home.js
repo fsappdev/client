@@ -34,10 +34,11 @@ const Home = () => {
             <div className="card home-card">
             <h5>Dario</h5>
             <div className="card-image">
-              <img
+              { 
+                item.extension === 'jpg' ? <img
                 src={item.foto}
                 alt=""
-              />
+              /> : <p>El archivo no es una imagen</p>}
             </div>
             <div className="card-content">
               <i style={{ color: "red" }} className="material-icons">

@@ -9,6 +9,7 @@ const CrearPost = () => {
   const [body, setBody] = useState("");
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
+  const [extension, setExtension] = useState("")
   //
   useEffect(() => {
     if (url) {
@@ -18,7 +19,7 @@ const CrearPost = () => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
       },
-      body: JSON.stringify({ title, body, pic: url }), //por ES6 se "resumen" las claves/valor
+      body: JSON.stringify({ title, body, pic: url, ext: extension  }), //por ES6 se "resumen" las claves/valor
     })
       .then((res) => res.json())
       .then((data) => {
@@ -49,12 +50,16 @@ const CrearPost = () => {
     data.append("upload_preset", "instaclone");
     data.append("cloud_name", "developfsa");
     data.append("resource_type", "auto");
-    fetch(urlImagenes, {
+    fetch(urlVarios, {
       method: "post",
       body: data,
     })
       .then((res) => res.json())
-      .then((data) => setUrl(data.url))
+      .then((data) => {
+        console.log(data);
+        setExtension(data.format)
+        setUrl(data.url)
+      })
       /* .then(clear()) */
       .catch((err) => console.log(err));
     
