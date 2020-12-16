@@ -57,7 +57,7 @@ const Login = () => {
   return (
     <div className="container my-card">
       <div className="card auth-card input-field">
-        <h2>InstaClone</h2>
+        <h2>QuiloGram</h2>
         <input
           placeholder="Correo electrónico"
           type="email"

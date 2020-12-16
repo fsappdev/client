@@ -1,8 +1,10 @@
 import React, {useContext, Fragment} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {UserContext} from '../App'
 
+
 const Navbar = () => {
+  const history = useHistory()
   const {state, dispatch} = useContext(UserContext)
   const renderList = () => {
     if(state){
@@ -14,6 +16,15 @@ const Navbar = () => {
           <li>
             <Link to="/postear">Postear</Link>
           </li>
+          <button 
+          onClick={()=>{
+              localStorage.clear() 
+              dispatch({type:"CLEAR"})
+              history.push("/login")
+            }} 
+          className="btn waves-effect #c62828 red darken 1">
+            Cerrar Sesion
+          </button>
         </Fragment>
       ]
     }else{
@@ -34,7 +45,7 @@ const Navbar = () => {
     <nav>
       <div className="nav-wrapper white">
         <Link to={state ? "/" : "/login"} className="brand-logo left">
-          InstaClone
+          QuiloGram
         </Link>
         <ul id="nav-mobile" className="right ">
           {renderList()}

@@ -1,6 +1,27 @@
-import React from "react";
+import React,{useEffect, useState, useContext} from "react";
+import {UserContext} from '../../App'
 
 const Perfil = () => {
+  //
+  const [mypics, setPics] = useState([])
+  const {state, dispatch} = useContext(UserContext) 
+  //
+  useEffect(() => {
+    fetch('http://localhost:4000/misposts',{
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
+    }
+  })
+  .then(res=>res.json())
+  .then(result=>{
+    console.log(result)
+    setPics(result)
+  })
+  },[])
+  
+
   return (
     <div style={{ maxWidth: "600px", margin: "0px, auto" }}>
       <div
@@ -18,8 +39,8 @@ const Perfil = () => {
             alt=""
           />
         </div>
-        <div className="">
-          <h4>Jane Doe</h4>
+        <div >
+          <h4>{state ? state.name : 'Cargando...'}</h4>
           <div
             style={{
               display: "flex",
@@ -34,36 +55,21 @@ const Perfil = () => {
         </div>
       </div>
       <div className="galeria">
-        <img
+      {
+        mypics ? mypics.map((item) => {
+          return (
+            <img
           className="item"
-          src="https://images.unsplash.com/photo-1602622021975-dacdcf516c43?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=769&q=80"
-          alt=""
+          key={item._id}
+          src={item.foto}
+          alt={item.titulo}
         />
-        <img
-          className="item"
-          src="https://images.unsplash.com/photo-1602622021975-dacdcf516c43?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=769&q=80"
-          alt=""
-        />
-        <img
-          className="item"
-          src="https://images.unsplash.com/photo-1602622021975-dacdcf516c43?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=769&q=80"
-          alt=""
-        />
-        <img
-          className="item"
-          src="https://images.unsplash.com/photo-1602622021975-dacdcf516c43?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=769&q=80"
-          alt=""
-        />
-        <img
-          className="item"
-          src="https://images.unsplash.com/photo-1602622021975-dacdcf516c43?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=769&q=80"
-          alt=""
-        />
-        <img
-          className="item"
-          src="https://images.unsplash.com/photo-1602622021975-dacdcf516c43?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=769&q=80"
-          alt=""
-        />
+          )
+        }
+        ) : <p>Aún no ha posteado...</p>
+      }
+        
+        
       </div>
     </div>
   );
