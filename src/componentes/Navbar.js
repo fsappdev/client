@@ -4,8 +4,10 @@ import {UserContext} from '../App'
 
 
 const Navbar = () => {
+  //
   const history = useHistory()
   const {state, dispatch} = useContext(UserContext)
+  //
   const renderList = () => {
     if(state){
       return [
@@ -31,10 +33,10 @@ const Navbar = () => {
         return [
           <Fragment>
             <li>
-              <Link to="/login">Entrar</Link>
+              <Link key="login" to="/login">Entrar</Link>
             </li>
             <li>
-              <Link to="/registrarse">Registrarse</Link>
+              <Link key="registrarse" to="/registrarse">Registrarse</Link>
             </li>
           </Fragment>
         ]
