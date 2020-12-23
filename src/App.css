@@ -73,3 +73,7 @@ a {
    right: 20px;
    left: auto !important;
  }
+
+ i:hover{
+ cursor: pointer;
+}
