@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect, useContext, Fragment} from "react";
 import {UserContext} from '../../App'
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
     fetch("http://localhost:4000/todoslosposts", requestOptions)
       .then(res=>res.json())
       .then(result => {
-        //console.log(result)
+        console.log(result)
         setData(result)
       })
       .catch(error => console.log('error', error));
@@ -40,6 +40,7 @@ const Home = () => {
     .then(result => {
       //console.log(result)
         const newData = data.map(item=>{
+          // eslint-disable-next-line
           if(item._id==result._id){
               return result
           }else{
@@ -78,12 +79,12 @@ const Home = () => {
     const requestOptions = {
       method: 'PUT',
       body: JSON.stringify({text, postId}),
-      headers: myHeaders,
-      redirect: 'follow' 
+      headers: myHeaders
     }
     fetch("http://localhost:4000/comentar", requestOptions)
     .then(res=>res.json())
-    .then(result=>{console.log(result)
+    .then(result=>{
+      //console.log(result)
       const newData = data.map(item=>{
         if(item._id==result._id){
             return result
@@ -96,6 +97,45 @@ const Home = () => {
     .catch(err=>console.log('error', err))
   }
 
+  const desComentar = (text, postId) => {
+    const requestOptions = {
+      method: 'PUT',
+      body: JSON.stringify({text, postId}),
+      headers: myHeaders
+    }
+    fetch("http://localhost:4000/descomentar", requestOptions)
+    .then(res=>res.json())
+    .then(result=>{
+      console.log(result)
+      const newData = data.map(item=>{
+        if(item._id==result._id){
+            return result
+        }else{
+            return item
+        }
+      })
+      setData(newData)
+    })
+    .catch(err=>console.log('error', err))
+  }
+
+  const deletePost = (postId) => {
+    const requestOptions = {
+      method: "delete",
+      body: JSON.stringify({postId}),
+      headers: myHeaders
+    }
+    fetch(`http://localhost:4000/delete/${postId}`, requestOptions)
+    .then(res=>res.json())
+    .then(result=>{
+      console.log(result);
+      const newData = data.filter(item=>item._id !== result._id)
+      setData(newData)
+    })
+    .catch(error=>console.log('error',error))
+    }
+
+    ///////
   return (
     <div className="home">
       {
@@ -104,9 +144,22 @@ const Home = () => {
             
             <div key={item._id} className="card home-card">
             {/* console.log(item) */}
-              <div style={{display: "flex", flexwrap: "wrap", justifycontent: "space-around"}} className="row">
-                <small>Posteado por: </small><h6> {item.posteadoPor.name}</h6>
-              </div>
+                {/* <div className="row" style={{display: "flex", flexwrap: "wrap", justifycontent: "space-around"}}        >
+                
+                </div> */}
+                { /* QUIEN POSTEA Y BTN DELETE */}
+                <h6 className="my-10">
+                  <small>Posteado por: </small> 
+                  {item.posteadoPor.name} 
+                  {item.posteadoPor._id == state._id ? <Fragment>
+                    
+                    <i onClick={()=>{deletePost(item._id)}} style={{ color: "red",float:"right" }} className="material-icons pointer">
+                      delete
+                    </i>
+                    <small style={{float: "right"}}>eliminar post</small>
+                    </Fragment> : null }
+                </h6>
+                {/* card */}
                 <div className="card-image">
                   { 
                     item.extension === 'jpg' || item.extension === 'png' ? <img
@@ -128,20 +181,6 @@ const Home = () => {
                 <h5>{item.titulo}</h5>
                 <h6>{item.cuerpo}</h6>
 
-                {
-                  item.comentarios ? item.comentarios.map(comentario => {
-                    return (
-                      <h6 key={comentario._id} style={{fontWeight:"500"}}>
-                      {comentario.posteadoPor.name} = 
-                        <span >
-                          {comentario.text}
-                        </span>
-                        
-                      </h6>
-                    )
-                  }) : null
-                }
-
                 <form onSubmit={(e) => {
                   e.preventDefault()
                   //console.log(e.target[0].value)
@@ -149,6 +188,28 @@ const Home = () => {
                 }}>
                   <input type="text" placeholder="agrega un comentario" />
                 </form>
+
+                {
+                  item.comentarios ? item.comentarios.map(comentario => {
+                    return (
+                      <h6 key={comentario._id} style={{fontWeight:"500"}}>
+                      {comentario.posteadoPor.name}  
+                        <span >
+                           _dijo: {comentario.text}
+                        </span>
+                        {comentario.posteadoPor._id == state._id || item.posteadoPor._id == state._id ? 
+                          <Fragment>
+                            <i onClick={()=>{desComentar(comentario.text,item._id)}} style={{ color: "red",float:"right" }} className="material-icons pointer">
+                              delete
+                            </i>
+                            {/* <small style={{float: "right"}}>borrar comentario</small> */}
+                          </Fragment> : null }
+                      </h6>
+                    )
+                  }) : null
+                }
+
+                
                 
               </div>
             </div>
