@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext, Fragment} from "react";
 import {UserContext} from '../../App'
+import {Link} from 'react-router-dom';
 
 const Home = () => {
   const [data, setData] = useState([])
@@ -150,13 +151,16 @@ const Home = () => {
                 { /* QUIEN POSTEA Y BTN DELETE */}
                 <h6 className="my-10">
                   <small>Posteado por: </small> 
-                  {item.posteadoPor.name} 
-                  {item.posteadoPor._id == state._id ? <Fragment>
-                    
-                    <i onClick={()=>{deletePost(item._id)}} style={{ color: "red",float:"right" }} className="material-icons pointer">
-                      delete
-                    </i>
-                    <small style={{float: "right"}}>eliminar post</small>
+                  <Link 
+                    to={item.posteadoPor._id !== state._id ?  "/perfil/"+item.posteadoPor._id : "/perfil"}>
+                    {item.posteadoPor.name}
+                  </Link>
+                  {item.posteadoPor._id == state._id ? 
+                    <Fragment>                    
+                      <i onClick={()=>{deletePost(item._id)}} style={{ color: "red",float:"right" }} className="material-icons pointer">
+                        delete
+                      </i>
+                      <small style={{float: "right"}}>eliminar post</small>
                     </Fragment> : null }
                 </h6>
                 {/* card */}
@@ -192,18 +196,23 @@ const Home = () => {
                 {
                   item.comentarios ? item.comentarios.map(comentario => {
                     return (
-                      <h6 key={comentario._id} style={{fontWeight:"500"}}>
+                      <h6 key={comentario._id} 
+                          style={{fontWeight:"500"}}
+                      >
                       {comentario.posteadoPor.name}  
-                        <span >
-                           _dijo: {comentario.text}
-                        </span>
-                        {comentario.posteadoPor._id == state._id || item.posteadoPor._id == state._id ? 
-                          <Fragment>
-                            <i onClick={()=>{desComentar(comentario.text,item._id)}} style={{ color: "red",float:"right" }} className="material-icons pointer">
-                              delete
-                            </i>
-                            {/* <small style={{float: "right"}}>borrar comentario</small> */}
-                          </Fragment> : null }
+                      <span >
+                          _dijo: {comentario.text}
+                      </span>
+                      {comentario.posteadoPor._id == state._id || item.posteadoPor._id == state._id ? 
+                        <Fragment>
+                          <i onClick={()=>{desComentar(comentario.text,item._id)}} 
+                             style={{ color: "red",float:"right" }} 
+                             className="material-icons pointer"
+                          >
+                            delete
+                          </i>
+                          {/* <small style={{float: "right"}}>borrar comentario</small> */}
+                        </Fragment> : null }
                       </h6>
                     )
                   }) : null

@@ -5,6 +5,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 import Home from "./componentes/pantallas/Home";
 import Perfil from "./componentes/pantallas/Perfil";
+import UserProfile from './componentes/pantallas/UserProfile';
 import Login from "./componentes/pantallas/Login";
 import Registrarse from "./componentes/pantallas/Registrarse";
 import CrearPost from "./componentes/pantallas/CrearPost";
@@ -43,6 +44,9 @@ const Routing = () => {
       </Route>
       <Route exact path="/postear">
         <CrearPost />
+      </Route>
+      <Route exact path="/perfil/:userid">
+        <UserProfile />
       </Route>
     </Switch>
   )
