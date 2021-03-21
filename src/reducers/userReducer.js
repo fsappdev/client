@@ -7,6 +7,13 @@ export const reducer = (state, action) => {
    if(action.type == "CLEAR"){
       return null
    }
+   if(action.type == "UPDATE"){
+      return {
+         ...state,
+         misseguidores: action.payload.misseguidores,
+         siguiendoa: action.payload.siguiendoa
+      }
+   }
    
    return state 
 }

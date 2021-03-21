@@ -217,9 +217,7 @@ const Home = () => {
                     )
                   }) : null
                 }
-
-                
-                
+       
               </div>
             </div>
           )

@@ -18,7 +18,8 @@ const Navbar = () => {
           <li>
             <Link to="/postear">Postear</Link>
           </li>
-          <button 
+          <button
+          style={{marginRight:"10px"}} 
           onClick={()=>{
               localStorage.clear() 
               dispatch({type:"CLEAR"})
