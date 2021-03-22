@@ -7,6 +7,7 @@ const UserProfile = () => {
    //////////////////////
   //
   const [userPerfil, setPerfil] = useState(null)
+  const [mostrarSeguir,setMostrarSeguir] = useState(true)
   const {state, dispatch} = useContext(UserContext) 
   const {userid} = useParams()
   console.log(userid);
@@ -22,8 +23,16 @@ const UserProfile = () => {
   .then(res=>res.json())
   .then(result=>{
     console.log(result)
-    //setPics(result)
     setPerfil(result)
+
+    //vamos a comprobar si el perfil visible en ESTE momento ya forma parte de nuestra lista de "seguidos"
+   const misDatosUser = JSON.parse(localStorage.getItem("user"))
+   //console.log({misDatosUser});
+   const {user}= result
+   if(misDatosUser.siguiendoa.includes(user._id)){
+      setMostrarSeguir(false)
+      //console.log('ya sigues a esta persona');
+   }else{console.log('todavia no sigues a esta persona')}
   })
   },[])
   
@@ -45,9 +54,48 @@ const UserProfile = () => {
         })
       localStorage.setItem("user",JSON.stringify(data)) 
       console.log(data)
+      setPerfil((prevState) => {
+         return{
+            ...prevState,
+            user: {
+               ...prevState.user,
+               misseguidores:[...prevState.user.misseguidores,data._id]
+            } 
+         }
+      })
+      setMostrarSeguir(false)
     })
   }
-
+  //
+  const noseguirUser = () => {
+   fetch(`http://localhost:4000/noseguir`,{
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
+    },
+    body: JSON.stringify({noseguirId:userid})
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    dispatch({
+       type: "UPDATE",
+       payload: {siguiendoa: data.siguiendoa, misseguidores:data.misseguidores},
+      })
+    localStorage.setItem("user",JSON.stringify(data)) 
+    console.log(data)
+    setPerfil((prevState) => {
+       return{
+          ...prevState,
+          user: {
+             ...prevState.user,
+             misseguidores:[...prevState.user.misseguidores,data._id]
+          } 
+       }
+    })
+    setMostrarSeguir(true)
+  })
+}
 
   ///////////////////////
 
@@ -84,14 +132,28 @@ const UserProfile = () => {
                <h6>{userPerfil ? `${userPerfil.user.misseguidores.length} seguidor/es` : 'Cargando...'}</h6>
                <h6>{userPerfil ? `${userPerfil.user.siguiendoa.length} siguiendo` : 'Cargando...'}</h6>
             </div>
-            <button
-               style={{marginBottom:"7px"}}
-               className="btn waves-effect waves-light blue darken-1"
-               type="submit"
-               onClick={() => seguirUser()}
-            >
-               _Seguir!
-            </button>
+            {
+               mostrarSeguir ? 
+               <button
+                  style={{marginBottom:"7px"}}
+                  className="btn waves-effect waves-light blue darken-1"
+                  type="submit"
+                  onClick={() => seguirUser()}
+               >
+                  _Seguir!
+               </button>
+               :
+               <button
+                  style={{marginBottom:"7px"}}
+                  className="btn waves-effect waves-light #ff00d4 darken-1"
+                  type="submit"
+                  onClick={() => noseguirUser()}
+               >
+                  _Dejar de Seguir
+               </button>
+            }
+            
+            
         </div>
       </div>
       <div className="galeria">
