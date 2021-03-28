@@ -99,14 +99,16 @@ const CrearPost = () => {
           <input
             type="file"
             onChange={(e) => setImage(e.target.files[0])}
-          ></input>
+          >
+          </input>
         </div>
         <div className="file-path-wrapper">
           <input
             className="file-path validate"
             type="text"
             placeholder="Subir una imagen"
-          ></input>
+          >
+          </input>
         </div>
       </div>
       <button

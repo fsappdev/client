@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext, Fragment} from "react";
 import {UserContext} from '../../App'
 import {Link} from 'react-router-dom';
 
-const Home = () => {
+const SubPosts = () => {
   const [data, setData] = useState([])
   const {state, dispatch}= useContext(UserContext)
 
@@ -12,17 +12,15 @@ const Home = () => {
   //
 
   useEffect(() => {
-  
     const requestOptions = {
       method: 'GET',
       headers: myHeaders,
       redirect: 'follow' 
     };
-
-    fetch("http://localhost:4000/todoslosposts", requestOptions)
+    fetch("http://localhost:4000/subposts", requestOptions)
       .then(res=>res.json())
       .then(result => {
-        console.info({'todos los posts>': result})
+        console.log(result)
         setData(result)
       })
       .catch(error => console.log('error', error));
@@ -140,7 +138,7 @@ const Home = () => {
   return (
     <div className="home">
       {
-        data ? data.map(item=>{
+        data.length != 0 ? data.map(item=>{
           return(
             
             <div key={item._id} className="card home-card">
@@ -152,7 +150,6 @@ const Home = () => {
                 <h6 className="my-10">
                   <small>Posteado por: </small> 
                   <Link 
-                    style={{fontWeight:"bold"}}
                     to={item.posteadoPor._id !== state._id ?  "/perfil/"+item.posteadoPor._id : "/perfil"}>
                     {item.posteadoPor.name}
                   </Link>
@@ -198,8 +195,9 @@ const Home = () => {
                   item.comentarios ? item.comentarios.map(comentario => {
                     return (
                       <h6 key={comentario._id}>
+                       
                       <span style={{fontWeight:"bold"}}>
-                        {comentario.posteadoPor.name}  
+                          {comentario.posteadoPor.name}   
                       </span>
                       _dijo: {comentario.text}
                       {comentario.posteadoPor._id == state._id || item.posteadoPor._id == state._id ? 
@@ -220,10 +218,10 @@ const Home = () => {
               </div>
             </div>
           )
-        }) : <h3>...Aun no se ha creado contenido</h3>
+        }) : <h5 className="center-align">Para ver el contenido de tus usuarios favoritos en la sección de noticias clickea el boton _seguir en el perfil de usuario🙋‍♀️🙋‍♂️</h5>
       }
     </div>
   );
 };
 
-export default Home;
+export default SubPosts;

@@ -13,11 +13,18 @@ const Navbar = () => {
       return [
         <Fragment>
           <li>
-            <Link to="/perfil">Perfil</Link>
+            <Link to="/siguiendoa">Noticias</Link>
           </li>
           <li>
             <Link to="/postear">Postear</Link>
           </li>
+          <li>
+            <Link to="/perfil">Mi Perfil</Link>
+          </li>
+          <li>
+            <Link to="/">Explorar</Link>
+          </li>
+
           <button
           style={{marginRight:"10px"}} 
           onClick={()=>{

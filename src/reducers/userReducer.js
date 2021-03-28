@@ -14,6 +14,12 @@ export const reducer = (state, action) => {
          siguiendoa: action.payload.siguiendoa
       }
    }
+   if(action.type == "UPDATEFOTO"){
+      return {
+         ...state,
+         fotolink: action.payload
+      }
+   }
    
    return state 
 }

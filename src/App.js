@@ -9,6 +9,7 @@ import UserProfile from './componentes/pantallas/UserProfile';
 import Login from "./componentes/pantallas/Login";
 import Registrarse from "./componentes/pantallas/Registrarse";
 import CrearPost from "./componentes/pantallas/CrearPost";
+import SubPosts from "./componentes/pantallas/SubPosts"
 import {reducer, initialState} from './reducers/userReducer'
 
 //file: app.js
@@ -47,6 +48,9 @@ const Routing = () => {
       </Route>
       <Route exact path="/perfil/:userid">
         <UserProfile />
+      </Route>
+      <Route exact path="/siguiendoa">
+        <SubPosts />
       </Route>
     </Switch>
   )

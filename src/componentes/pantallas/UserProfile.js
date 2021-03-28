@@ -10,7 +10,6 @@ const UserProfile = () => {
   const [mostrarSeguir,setMostrarSeguir] = useState(true)
   const {state, dispatch} = useContext(UserContext) 
   const {userid} = useParams()
-  console.log(userid);
   //
   useEffect(() => {
     fetch(`http://localhost:4000/user/${userid}`,{
@@ -24,15 +23,16 @@ const UserProfile = () => {
   .then(result=>{
     console.log(result)
     setPerfil(result)
-
     //vamos a comprobar si el perfil visible en ESTE momento ya forma parte de nuestra lista de "seguidos"
-   const misDatosUser = JSON.parse(localStorage.getItem("user"))
+   //const misDatosUser = JSON.parse(localStorage.getItem("user")) //info del user loggeado en ESTE Momento.
    //console.log({misDatosUser});
-   const {user}= result
-   if(misDatosUser.siguiendoa.includes(user._id)){
+   //console.log({state});
+   const {user}= result //info del user a quien se pretende seguir o no seguir.
+   if(state && state.siguiendoa.includes(user._id)){
       setMostrarSeguir(false)
       //console.log('ya sigues a esta persona');
-   }else{console.log('todavia no sigues a esta persona')}
+   }
+   //else{console.log('todavia no sigues a esta persona')}
   })
   },[])
   
@@ -113,7 +113,8 @@ const UserProfile = () => {
         <div className="">
           <img
             style={{ width: "160px", height: "160px", borderRadius: "80px" }}
-            src="https://images.unsplash.com/photo-1602622021975-dacdcf516c43?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=769&q=80"
+            /* src="https://images.unsplash.com/photo-1602622021975-dacdcf516c43?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=769&q=80" */
+            src={userPerfil ? userPerfil.user.fotolink : "cargando..."}
             alt=""
           />
         </div>
@@ -128,14 +129,14 @@ const UserProfile = () => {
                width: "110%",
                }}
             >
-               <h6>40 posts</h6>
-               <h6>{userPerfil ? `${userPerfil.user.misseguidores.length} seguidor/es` : 'Cargando...'}</h6>
-               <h6>{userPerfil ? `${userPerfil.user.siguiendoa.length} siguiendo` : 'Cargando...'}</h6>
+               <h6>{userPerfil ? " Publicaciones " + userPerfil.posts.length : "Cargando..."}</h6>
+               <h6>{userPerfil ? `seguidor/es ${userPerfil.user.misseguidores.length}` : 'Cargando...'}</h6>
+               <h6>{userPerfil ? `siguiendo a ${userPerfil.user.siguiendoa.length} ` : 'Cargando...'}</h6>
             </div>
             {
                mostrarSeguir ? 
                <button
-                  style={{marginBottom:"7px"}}
+                  style={{margin:"10px"}}
                   className="btn waves-effect waves-light blue darken-1"
                   type="submit"
                   onClick={() => seguirUser()}
@@ -144,7 +145,7 @@ const UserProfile = () => {
                </button>
                :
                <button
-                  style={{marginBottom:"7px"}}
+                  style={{margin:"10px"}}
                   className="btn waves-effect waves-light #ff00d4 darken-1"
                   type="submit"
                   onClick={() => noseguirUser()}
