@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import "../src/librerias/materialize/css/materialize.min.css";
+/* import "../src/librerias/materialize/js/materialize.js" */
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 

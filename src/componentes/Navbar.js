@@ -54,9 +54,25 @@ const Navbar = () => {
   return (
     <nav>
       <div className="nav-wrapper white">
-        <Link to={state ? "/" : "/login"} className="brand-logo left">
-          QuiloGram
-        </Link>
+        <div className="">
+          <img
+            className="brand-logo left"
+            style={{  
+              width: "40px", 
+              height: "40px", 
+              borderRadius: "50%",
+              /* marginRight:"px", */
+              marginTop: "12px",
+              marginLeft:"15px"
+            }}
+            /* src="https://images.unsplash.com/photo-1602622021975-dacdcf516c43?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=769&q=80" */
+            src={state ? state.fotolink : "https://res.cloudinary.com/developfsa/image/upload/v1616595686/user_default_wsqzrm.png"}
+            alt=""
+          />
+          <Link style={{marginLeft: "60px"}} to={state ? "/" : "/login"} className="brand-logo left">
+            QuiloGram
+          </Link>
+        </div>
         <ul id="nav-mobile" className="right ">
           {renderList()}
         </ul>

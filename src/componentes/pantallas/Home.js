@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext, Fragment} from "react";
 import {UserContext} from '../../App'
 import {Link} from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 const Home = () => {
   const [data, setData] = useState([])
@@ -12,7 +13,8 @@ const Home = () => {
   //
 
   useEffect(() => {
-  
+
+
     const requestOptions = {
       method: 'GET',
       headers: myHeaders,
@@ -150,12 +152,30 @@ const Home = () => {
                 </div> */}
                 { /* QUIEN POSTEA Y BTN DELETE */}
                 <h6 className="my-10">
-                  <small>Posteado por: </small> 
+
+                  <small>Creado por: </small> 
+
                   <Link 
                     style={{fontWeight:"bold"}}
                     to={item.posteadoPor._id !== state._id ?  "/perfil/"+item.posteadoPor._id : "/perfil"}>
                     {item.posteadoPor.name}
                   </Link>
+
+                  {item.posteadoPor._id != state._id ? 
+                    <Fragment>                    
+                      <a style={{ color: "green",float:"right" }} 
+                      className="btn-floating btn-small"
+                      data-for="agregar" 
+                      data-tip
+                      >
+                      <i className="material-icons">add</i>
+                      </a>
+                      <ReactTooltip id="agregar" place="right" effect="float" type="info">
+                        Agregar el post a MI lista
+                      </ReactTooltip>
+                      {/* <small style={{float: "right"}}>eliminar post</small> */}
+                    </Fragment> : null }
+
                   {item.posteadoPor._id == state._id ? 
                     <Fragment>                    
                       <i onClick={()=>{deletePost(item._id)}} style={{ color: "red",float:"right" }} className="material-icons pointer">

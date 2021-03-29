@@ -47,8 +47,8 @@ const Perfil = () => {
         console.log(data);
         setExtension(data.format)
         setUrl(data.url)
-        localStorage.setItem("user",JSON.stringify({...state, fotolink:data.url}))
-        dispatch({type:"UPDATEFOTO", payload: data.url})
+        /* localStorage.setItem("user",JSON.stringify({...state, fotolink:data.url}))
+        dispatch({type:"UPDATEFOTO", payload: data.url}) */
         updateFoto(data.url)
       })
       /* .then(clear()) */
@@ -78,7 +78,11 @@ const Perfil = () => {
         body: JSON.stringify({fotolink : url })
       })
       .then((res) => res.json())
-      .then(data=>console.log({data}))
+      .then(async data=>{
+        console.log({data})
+        localStorage.setItem("user",JSON.stringify({...state, fotolink:url}))
+        dispatch({type:"UPDATEFOTO", payload: url})
+      })
       .catch((err) => console.log('no se pudo guardar en la bd',err))
   }
 
@@ -134,7 +138,9 @@ const Perfil = () => {
 
           <div className="file-field input-field">
             <div className="btn purple accent-2 darken-1">
-              <span>Cambiar Foto</span>
+              <i class="large material-icons">add_a_photo</i>
+              {/* <i class="medium material-icons">control_point</i> */}
+              <span> Cambiar Foto </span>
               <input
                 type="file"
                 onChange={(e) => CambiarFoto(e.target.files[0])}
