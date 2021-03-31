@@ -10,6 +10,7 @@ import Login from "./componentes/pantallas/Login";
 import Registrarse from "./componentes/pantallas/Registrarse";
 import CrearPost from "./componentes/pantallas/CrearPost";
 import SubPosts from "./componentes/pantallas/SubPosts"
+
 import {reducer, initialState} from './reducers/userReducer'
 
 //file: app.js
@@ -29,6 +30,7 @@ const Routing = () => {
       history.push('/login')
     }
   },[])
+  
   return(
     <Switch>
       <Route exact path="/">
@@ -52,6 +54,7 @@ const Routing = () => {
       <Route exact path="/siguiendoa">
         <SubPosts />
       </Route>
+      
     </Switch>
   )
 }

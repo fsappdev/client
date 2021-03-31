@@ -13,16 +13,16 @@ const Navbar = () => {
       return [
         <Fragment>
           <li>
-            <Link to="/siguiendoa">Noticias</Link>
+            <Link key="siguiendoa" to="/siguiendoa">Noticias</Link>
           </li>
           <li>
-            <Link to="/postear">Postear</Link>
+            <Link key="postear" to="/postear">Postear</Link>
           </li>
           <li>
-            <Link to="/perfil">Mi Perfil</Link>
+            <Link key="perfil" to="/perfil">Mi Perfil</Link>
           </li>
           <li>
-            <Link to="/">Explorar</Link>
+            <Link key="home" to="/">Explorar</Link>
           </li>
 
           <button

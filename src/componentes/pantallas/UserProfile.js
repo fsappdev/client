@@ -12,7 +12,7 @@ const UserProfile = () => {
   const {userid} = useParams()
   //
   useEffect(() => {
-    fetch(`http://localhost:4000/user/${userid}`,{
+    fetch(`https://instaclon-server.herokuapp.com/user/${userid}`,{
     method: "get",
     headers: {
       "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const UserProfile = () => {
   
   //
   const seguirUser = () => {
-     fetch(`http://localhost:4000/seguir`,{
+     fetch(`https://instaclon-server.herokuapp.com/seguir`,{
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const UserProfile = () => {
   }
   //
   const noseguirUser = () => {
-   fetch(`http://localhost:4000/noseguir`,{
+   fetch(`https://instaclon-server.herokuapp.com/noseguir`,{
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

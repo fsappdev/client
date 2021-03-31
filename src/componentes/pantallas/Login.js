@@ -30,7 +30,9 @@ const Login = () => {
       clear();
       return;
     }
-    fetch("http://localhost:4000/loguearse", {
+    //dev endpoint: "https://instaclon-server.herokuapp.com/loguearse"
+    //produccion endpoint:"https://instaclon-server.herokuapp.com/loguearse"  
+    fetch("https://instaclon-server.herokuapp.com/loguearse", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

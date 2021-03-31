@@ -21,7 +21,9 @@ const Home = () => {
       redirect: 'follow' 
     };
 
-    fetch("http://localhost:4000/todoslosposts", requestOptions)
+    //dev endpoint: "https://instaclon-server.herokuapp.com/todoslosposts"
+    //produccion endpoint:"https://instaclon-server.herokuapp.com/todoslosposts"  
+    fetch("https://instaclon-server.herokuapp.com/todoslosposts", requestOptions)
       .then(res=>res.json())
       .then(result => {
         console.info({'todos los posts>': result})
@@ -38,7 +40,10 @@ const Home = () => {
       headers: myHeaders,
       redirect: 'follow' 
     };
-    fetch("http://localhost:4000/like",requestOptions)
+
+    //dev endpoint: "https://instaclon-server.herokuapp.com/like"
+    //produccion endpoint:"https://instaclon-server.herokuapp.com/like" 
+    fetch("https://instaclon-server.herokuapp.com/like",requestOptions)
     .then(res=>res.json())
     .then(result => {
       //console.log(result)
@@ -62,7 +67,7 @@ const Home = () => {
       headers: myHeaders,
       redirect: 'follow' 
     };
-    fetch("http://localhost:4000/dislike",requestOptions)
+    fetch("https://instaclon-server.herokuapp.com/dislike",requestOptions)
     .then(res=>res.json())
     .then(result => {
       //console.log(result)
@@ -84,7 +89,7 @@ const Home = () => {
       body: JSON.stringify({text, postId}),
       headers: myHeaders
     }
-    fetch("http://localhost:4000/comentar", requestOptions)
+    fetch("https://instaclon-server.herokuapp.com/comentar", requestOptions)
     .then(res=>res.json())
     .then(result=>{
       //console.log(result)
@@ -106,7 +111,7 @@ const Home = () => {
       body: JSON.stringify({text, postId}),
       headers: myHeaders
     }
-    fetch("http://localhost:4000/descomentar", requestOptions)
+    fetch("https://instaclon-server.herokuapp.com/descomentar", requestOptions)
     .then(res=>res.json())
     .then(result=>{
       console.log(result)
@@ -128,7 +133,7 @@ const Home = () => {
       body: JSON.stringify({postId}),
       headers: myHeaders
     }
-    fetch(`http://localhost:4000/delete/${postId}`, requestOptions)
+    fetch(`https://instaclon-server.herokuapp.com/delete/${postId}`, requestOptions)
     .then(res=>res.json())
     .then(result=>{
       console.log(result);
@@ -236,7 +241,7 @@ const Home = () => {
                     )
                   }) : null
                 }
-       
+                
               </div>
             </div>
           )

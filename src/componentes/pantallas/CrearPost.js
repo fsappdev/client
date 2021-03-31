@@ -13,7 +13,7 @@ const CrearPost = () => {
   //
   useEffect(() => {
     if (url) {
-      fetch("http://localhost:4000/crearpost", {
+      fetch("https://instaclon-server.herokuapp.com/crearpost", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

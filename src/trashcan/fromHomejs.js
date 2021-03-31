@@ -43,7 +43,7 @@
  //
   /* const likePost = (id) => {
     console.log(id);
-    fetch('http://localhost:4000/like',{
+    fetch('https://instaclon-server.herokuapp.com/like',{
       method:"put",
       headers: {
         "Content-Type":"application/json",
@@ -60,7 +60,7 @@
 
   const disLikePost = async (id) => {
     console.log(id);
-    await fetch('http://localhost:4000/dislike',{
+    await fetch('https://instaclon-server.herokuapp.com/dislike',{
       method:"put",
       headers: {
         "Content-Type":"application/json",

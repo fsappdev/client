@@ -15,7 +15,7 @@ const Perfil = () => {
   //
 
   useEffect(() => {
-    fetch('http://localhost:4000/misposts',{
+    fetch('https://instaclon-server.herokuapp.com/misposts',{
     method: "get",
     headers: {
       "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const Perfil = () => {
 
   /* useEffect(() => {
     if (url) {
-      fetch("http://localhost:4000/updatefoto",{
+      fetch("https://instaclon-server.herokuapp.com/updatefoto",{
         method: "put",
         body: JSON.stringify({ id : state._id, fotolink : url })
       })
@@ -69,7 +69,7 @@ const Perfil = () => {
   }, [url]) */
 
   const updateFoto = (url) => {
-    fetch("http://localhost:4000/updatefoto",{
+    fetch("https://instaclon-server.herokuapp.com/updatefoto",{
         method: "put",
         headers: {
           "Content-Type": "application/json",

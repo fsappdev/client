@@ -57,7 +57,7 @@ const Registrarse = () => {
         clear();
         return;
       }
-    fetch("http://localhost:4000/registrarse", {
+    fetch("https://instaclon-server.herokuapp.com/registrarse", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
